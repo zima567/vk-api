@@ -1,0 +1,136 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REST API + Json</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="header-section">
+        <ul>
+            <li class="active" id="nav-signup"><a href="#">Signup</a></li>
+            <li><a href="#" id="nav-login">Login</a></li>
+            <li><a href="#" id="nav-add-product">Add Product</a></li>
+            <li><a href="#" id="nav-catalogue">Catalogue</a></li>
+            <li><a href="#" id="nav-filter">search filter</a></li>
+          </ul>
+    </div>
+    <div class="main-content">
+
+        <div class="welcome-message">
+            <h1>REST API + JSON</h1>
+        </div>
+
+        <div class="component filer" id="sec-filer">
+          <div>
+            <label>Limit</label>
+            <input type="text" id="limit" name="limit" placeholder="Add limit to query">
+        
+            <label>offset</label>
+            <input type="text" id="offset" name="PriceMin" placeholder="add offset">
+
+            <label>min price</label>
+            <input type="text" id="priceMin" name="priceMin" placeholder="Enter min price">
+
+            <label>max price</label>
+            <input type="text" id="priceMax" name="priceMax" placeholder="Enter max price">
+            
+            <input type="submit" value="Search" id="filerSubmit">
+          </div>
+        </div>
+
+        <div class="noti" id="noti"></div>
+
+        <div class="component signup" id="sec-signup">
+            <div>
+              <label>Login</label>
+              <input type="text" id="signup-login" name="login" placeholder="create your login">
+          
+              <label>Password</label>
+              <input type="text" id="signup-password" name="password" placeholder="create your password">
+          
+              <label>
+                Password and login requirements <br>
+                Login: only alphanumeric characters and underscores, should be between 3 and 16 characters long <br>
+                password: should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character
+              </label>
+              <input type="submit" value="Signup" id="signupSubmit">
+            </div>
+          </div>
+
+          <div class="component login" id="sec-login">
+            <div>
+              <label for="login">Login</label>
+              <input type="text" id="login-login" name="login" placeholder="enter your login">
+          
+              <label for="password">Password</label>
+              <input type="text" id="login-password" name="password" placeholder="enter your password">
+
+              <input type="submit" value="login" id="loginSubmit">
+            </div>
+          </div>
+
+          <div class="component add-product" id="sec-add-product">
+            <div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="title">Title</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="title" name="title" placeholder="Procut name..">
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="price">Price</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="price" name="price" placeholder="Procut price..">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="picture">Product Picture</label>
+              </div>
+              <div class="col-75">
+                <input type="file" id="ppicture" name="ppicture" placeholder="Upload a picture for your product">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="description">description</label>
+              </div>
+              <div class="col-75">
+                <textarea id="description" name="description" placeholder="Write something.." style="height:200px"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <input type="submit" value="Add product" id="addProductSubmit">
+            </div>
+          </div>
+          </div>
+          <div class="component section-catalogue" id="sec-section-catalogue">
+            <di class="small-header">
+                <h4>Product catalogue</h4>
+            </di>
+            <div class="catalogue" id="catalogue">
+                <!--Here will be the products elements-->
+                <div class="product-box">
+                  <img src="#" alt="Product Image">
+                  <h3>No product</h3>
+                  <p class="price">$0.00</p>
+                  <p class="description">No product description...</p>
+                  <p class="seller">Seller: ...</p>
+                  <span class="tag">...</span>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+</html>
