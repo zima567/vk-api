@@ -25,9 +25,10 @@ class CreateTableProducts extends Migration
         $this->capsule()::schema()->create('products', function ($table) {
             $table->id();
             $table->string('title');
-            $table->string('price');
+            $table->decimal('price');
             $table->string('description');
             $table->string('pictureLink');
+            $table->dateTime('createdAt');
             $table->unsignedBigInteger('idUserFk');
             $table
                 ->foreign('idUserFk')

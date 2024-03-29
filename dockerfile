@@ -11,9 +11,18 @@ RUN set -xe \
     && docker-php-ext-install -j$(nproc) pdo_mysql
   
 FROM base
- 
-# Указываем, что текущая папка проекта копируется
-# в рабочую директорию контейнера
+
+# Copy the composer.json and composer.lock files
+COPY composer.json composer.lock ./
+
+# Install a specific version of Composer (e.g., Composer 2.1.9)
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=2.3.5 \
+    && php -r "unlink('composer-setup.php');"
+
+# Install the project dependencies using the specific Composer version
+RUN composer install --no-scripts --no-autoloader
+
 # https://docs.docker.com/engine/reference/builder/#copy
 COPY . ${WORK_DIR}
  

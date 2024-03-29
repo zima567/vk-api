@@ -24,6 +24,7 @@ class ViewProductsHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        //Check if user is authenticated and set user id
         $id = 0;
         $authData = $request->getAttributes('auth');
         if($authData['auth']['isAuthenticated']) {
@@ -32,6 +33,7 @@ class ViewProductsHandler implements RequestHandlerInterface
         $reqData = $request->getQueryParams();
         $allProducts = [];
 
+        //Get info from request or set their default values
         $orderType = $reqData['orderType'] ? strval($reqData['orderType']) : "login";
         $orderDirection = ($reqData['orderDirection'] && $reqData['orderDirection'] == 1)  ? "asc" : "desc";
         $limit = $reqData['limit'] ? intval($reqData['limit']) : 100;
@@ -39,6 +41,7 @@ class ViewProductsHandler implements RequestHandlerInterface
         $priceMin = $reqData['priceMin'] ? intval($reqData['priceMin']) : 0;
         $priceMax = $reqData['priceMax'] ? intval($reqData['priceMax']) : 0;
         
+        //Query users products by price min and max if they were set
         if($priceMin !== 0 && $priceMax !== 0) {
             $allProducts = $this->capsule::table('users')
                 ->join('products', 'users.id', '=', 'products.idUserFk')
@@ -58,6 +61,7 @@ class ViewProductsHandler implements RequestHandlerInterface
             ->get();
         }
 
+        //If user is authenticated return flag of product ownership
         if($id !== 0 && count($allProducts) !== 0) {
             foreach ($allProducts as $product) {
                 $product->owner = $id == $product->idUserFk ? true : false;

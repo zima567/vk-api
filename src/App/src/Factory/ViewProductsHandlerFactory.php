@@ -13,7 +13,7 @@ class ViewProductsHandlerFactory
 {
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        //настройка конфигурации базы данных
+        //database setting configurations
         $capsule = new Capsule();
         $capsule->setAsGlobal();
         $capsule->bootEloquent();

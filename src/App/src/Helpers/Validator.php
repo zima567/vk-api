@@ -5,23 +5,19 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 /**
- * Class FilterCredentials.
- * Предоставляет методы для ...
+ * Class Validator.
+ * This class contain methods to verify
+ * requirements of different incoming request
+ * parameters
  *
  * @package Helpers
  */
-class FilterCredentials
+class Validator
 {
     /**
-     * constructor.
-     */
-    /*public function __construct()
-    {}*/
-
-    /**
-     * TTTTTTTTTT
-     * @param int
-     * @param array
+     * check password requirements
+     * @param bool
+     * @param string $password
      */
     public function checkPassword($password): bool
     {
@@ -37,6 +33,11 @@ class FilterCredentials
         return false;
     }
 
+    /**
+     * check login requirements
+     * @param bool
+     * @param string $login
+     */
     public function checkLogin($login): bool
     {
          // Login should contain only alphanumeric characters and underscores,
@@ -49,6 +50,11 @@ class FilterCredentials
         return false;
     }
 
+    /**
+     * check price requirements
+     * @param bool
+     * @param string $price
+     */
     public function validatePriceRequirement($price): bool
     {
         if (!is_numeric($price) || $price <= 0) {
@@ -57,9 +63,27 @@ class FilterCredentials
         return true;
     }
 
-    public function validateMaxLength($param, $maxLength = 300): bool
+    /**
+     * check description requirements
+     * @param bool
+     * @param string $description
+     */
+    public function validateMaxLengthDesc($description, $maxLength = 300): bool
     {
-        if (strlen($param) > $maxLength) {
+        if (strlen($description) > $maxLength) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * check product title requirements
+     * @param bool
+     * @param string $title
+     */
+    public function validateMaxLengthTitle($description, $maxLength = 30): bool
+    {
+        if (strlen($description) > $maxLength) {
             return false;
         }
         return true;

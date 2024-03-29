@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Helpers\FileUploader;
+use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Helpers\FileUploader;
-use Exception;
 use Throwable;
 
 class UploadHandler implements RequestHandlerInterface

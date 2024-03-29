@@ -15,11 +15,12 @@ class Product extends Model
         'description',
         'price',
         'pictureLink',
+        'createdAt',
         'idUserFk',
     ];
     protected $visible = ['id', 'title', 'price', 'description', 'pictureLink', 'idUserFk'];
 
-    //отключить timestamps
+    //desactivate timestamps
     public $timestamps = FALSE;
 
     public function user()

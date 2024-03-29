@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Helpers\Validator;
+use App\Helpers\Checkers;
+use App\Models\User;
+use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Exception;
 use Throwable;
-use App\Helpers\FilterCredentials;
-use App\Models\User;
-use App\Helpers\Checkers;
 
 class RegistrationHandler implements RequestHandlerInterface
 {
@@ -30,8 +30,8 @@ class RegistrationHandler implements RequestHandlerInterface
 
             $login = $reqData["login"];
             $password = $reqData["password"];
-            $filer = new FilterCredentials();
-            if(!$filer->checkPassword($password) || !$filer->checkLogin($login)) {
+            $validator = new Validator();
+            if(!$validator->checkPassword($password) || !$validator->checkLogin($login)) {
                 throw new Exception(
                     "Incorrect password/login."
                 );

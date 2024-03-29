@@ -5,6 +5,8 @@ services:
     # PHP fpm
     application-backend:
         build: .
+        depends_on:
+            - application-mysql
         restart: always
         tty: true
         working_dir: /var/www/application

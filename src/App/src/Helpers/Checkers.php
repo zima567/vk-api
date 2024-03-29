@@ -5,23 +5,18 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 /**
- * Class FilterCredentials.
- * Предоставляет методы для ...
+ * Class Checkers
+ * Contain methods for simple checks
+ * on array of data
  *
  * @package App\Helpers
  */
 class Checkers
 {
     /**
-     * constructor.
-     */
-    /*public function __construct()
-    {}*/
-
-    /**
-     * TTTTTTTTTT
-     * @param int
-     * @param array
+     * Check if request contain required fields
+     * @param array $requiredParams
+     * @param array $dataReq
      */
     public function checkRequiredParams($requiredParams, $dataReq): bool
     {

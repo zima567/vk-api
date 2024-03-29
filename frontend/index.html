@@ -10,11 +10,14 @@
     <div class="header-section">
         <ul>
             <li class="active" id="nav-signup"><a href="#">Signup</a></li>
-            <li><a href="#" id="nav-login">Login</a></li>
-            <li><a href="#" id="nav-add-product">Add Product</a></li>
-            <li><a href="#" id="nav-catalogue">Catalogue</a></li>
-            <li><a href="#" id="nav-filter">search filter</a></li>
-          </ul>
+            <li id="nav-login"><a href="#">Login</a></li>
+            <li id="nav-add-product"><a href="#">Add Product</a></li>
+            <li id="nav-catalogue"><a href="#">Catalogue</a></li>
+            <li id="nav-filter"><a href="#">search filter</a></li>
+        </ul>
+    </div>
+    <div class="loader-container" id="loaderContainer">
+      <div class="loader"></div>
     </div>
     <div class="main-content">
 
@@ -22,20 +25,38 @@
             <h1>REST API + JSON</h1>
         </div>
 
-        <div class="component filer" id="sec-filer">
+        <div class="component filter" id="sec-filter">
           <div>
-            <label>Limit</label>
-            <input type="text" id="limit" name="limit" placeholder="Add limit to query">
-        
-            <label>offset</label>
-            <input type="text" id="offset" name="PriceMin" placeholder="add offset">
-
-            <label>min price</label>
-            <input type="text" id="priceMin" name="priceMin" placeholder="Enter min price">
-
-            <label>max price</label>
-            <input type="text" id="priceMax" name="priceMax" placeholder="Enter max price">
-            
+            <span>
+              <label>Limit</label>
+              <input type="text" id="limit" name="limit" placeholder="Add limit to query">
+            </span>
+            <span>
+              <label>offset</label>
+              <input type="text" id="offset" name="PriceMin" placeholder="add offset">
+            </span>
+            <span>
+              <label>min price</label>
+              <input type="text" id="priceMin" name="priceMin" placeholder="Enter min price">
+            </span>
+            <span>
+              <label>max price</label>
+              <input type="text" id="priceMax" name="priceMax" placeholder="Enter max price">
+            </span>
+            <span>
+              <label for="order-type">Order by</label>
+              <select id="order-type" name="order-type">
+                <option value="date">Date</option>
+                <option value="price">Price</option>
+              </select>
+            </span>
+            <span>
+              <label for="order-direction">Direction</label>
+              <select id="order-direction" name="order-direction">
+                <option value="asc">ASC</option>
+                <option value="desc">DESC</option>
+              </select>
+            </span>
             <input type="submit" value="Search" id="filerSubmit">
           </div>
         </div>
@@ -45,10 +66,10 @@
         <div class="component signup" id="sec-signup">
             <div>
               <label>Login</label>
-              <input type="text" id="signup-login" name="login" placeholder="create your login">
+              <input type="text" id="signup-login" name="login" placeholder="create your login" required>
           
               <label>Password</label>
-              <input type="text" id="signup-password" name="password" placeholder="create your password">
+              <input type="password" id="signup-password" name="password" placeholder="create your password" required>
           
               <label>
                 Password and login requirements <br>
@@ -65,7 +86,7 @@
               <input type="text" id="login-login" name="login" placeholder="enter your login">
           
               <label for="password">Password</label>
-              <input type="text" id="login-password" name="password" placeholder="enter your password">
+              <input type="password" id="login-password" name="password" placeholder="enter your password">
 
               <input type="submit" value="login" id="loginSubmit">
             </div>

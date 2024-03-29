@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Helpers\Checkers;
+use App\Models\User;
+use Exception;
+use \Firebase\JWT\JWT;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Exception;
 use Throwable;
-use App\Models\User;
-use \Firebase\JWT\JWT;
-use App\Helpers\Checkers;
 
 class AuthenticationHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        //Get secret key for JWT Token
         $jwtSecret = getenv('JWT_SECRET');
-        $check = new Checkers();
+
+        //Verify if request contain required fields
         $requiredParams = ["password", "login"];
         $reqData = $request->getParsedBody();
+        $check = new Checkers();
         try {
             if (!$check->checkRequiredParams($requiredParams, $reqData)) {
                 throw new Exception(
@@ -50,10 +53,9 @@ class AuthenticationHandler implements RequestHandlerInterface
             ], 401);
         }
 
+        //Set informations then create auth token
         $issuedat_claim = time();
-        //not before in seconds
         $notbefore_claim = $issuedat_claim + 10;
-        //expire time in seconds
         $expire_claim = $issuedat_claim + 43200;
         $token = array(
             "iat" => $issuedat_claim,

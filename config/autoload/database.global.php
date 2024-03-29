@@ -13,8 +13,9 @@ $databaseConnection = [
 return [
     'database' => [
         'migrations' => array_merge($databaseConnection, [
-            'host' => 'localhost',
-            'port' => 3307,
+            //'host' => 'localhost',
+            //'port' => 3307,
+            'host' => 'application-mysql',
         ]),
         'container' => array_merge($databaseConnection, [
             'host' => 'application-mysql',
