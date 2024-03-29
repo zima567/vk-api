@@ -4,4 +4,7 @@
 /coveralls-upload.json
 /phpunit.xml
 /vendor/
-/public/upload/
+/public/upload/*
+/.xml.dist
+/test/
+/.env

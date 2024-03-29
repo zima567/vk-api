@@ -41,7 +41,7 @@ The frontend should be served on your localhost:80/frontend/
 >   Laminas Mezzio middleware framework
 > ```
 
-## Other use commands
+## Other useful commands
 
 Run migrations
 
