@@ -28,7 +28,7 @@ services:
             - ./public/:/var/www/application/public/
             - ./frontend/:/var/www/application/public/frontend/
         ports:
-            - "81:80"
+            - "80:80"
             - "443:443"
     
     # MySQL Service
