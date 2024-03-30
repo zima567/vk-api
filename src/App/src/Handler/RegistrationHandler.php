@@ -6,7 +6,7 @@ namespace App\Handler;
 
 use App\Helpers\Validator;
 use App\Helpers\Checkers;
-use App\Models\User;
+use \App\Models\User;
 use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;

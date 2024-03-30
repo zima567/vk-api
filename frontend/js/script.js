@@ -230,8 +230,10 @@ $(document).ready(function(){
               let products = data.products;
               $("#catalogue").html("");
               products.forEach(product => {
-                  let prodElement = '<div class="product-box">\
-                  <img src="'+product.pictureLink+'" alt="Product Image">\
+                  let prodElement = '<div class="product-box">';
+		  let splitPictureLink = product.pictureLink.split("/");
+		  let link = splitPictureLink[splitPictureLink.length - 1];
+		  prodElement += '<img src="/'+link+'" alt="Product Image">\
                   <h3>'+product.title+'</h3>\
                   <p class="price">'+product.price+'</p>\
                   <p class="description">'+product.description+'</p>\
@@ -296,17 +298,19 @@ $(document).ready(function(){
             $("#catalogue").html("");
             $("#sec-section-catalogue").show();
             products.forEach(product => {
-                let prodElement = '<div class="product-box">\
-                <img src="'+product.pictureLink+'" alt="Product Image">\
-                <h3>'+product.title+'</h3>\
-                <p class="price">'+product.price+'</p>\
-                <p class="description">'+product.description+'</p>\
-                <span class="seller"> Seller: '+product.login+'</span>';
-                if(product.owner) {
-                  prodElement += '<span class="tag">Owner</span>';
-                }
-                prodElement += '</div>';
-                $("#catalogue").append(prodElement);
+                let prodElement = '<div class="product-box">';
+                  let splitPictureLink = product.pictureLink.split("/");
+                  let link = splitPictureLink[splitPictureLink.length - 1];
+                  prodElement += '<img src="/'+link+'" alt="Product Image">\
+                  <h3>'+product.title+'</h3>\
+                  <p class="price">'+product.price+'</p>\
+                  <p class="description">'+product.description+'</p>\
+                  <span class="seller"> Seller: '+product.login+'</span>';
+                  if(product.owner) {
+                    prodElement += '<span class="tag">Owner</span>';
+                  }
+                  prodElement += '</div>';
+                  $("#catalogue").append(prodElement);
             });
         },
         error: function(xhr, status, error) {

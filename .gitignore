@@ -5,6 +5,6 @@
 /phpunit.xml
 /vendor/
 /public/upload/*
-/.xml.dist
+/*.xml.dist
 /test/
 /.env
