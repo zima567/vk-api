@@ -41,8 +41,10 @@ The frontend should be served on your localhost:80/frontend/
 
 Causes the backend API may not work properly:
 - Dependencies did not install properly
-- Migration did not run  
-To solve this issue you can open an interactive shell in the `application-backend` container.
+- Migration did not run
+- folder /upload need access (chmod 777)  
+ 
+To solve these issues you can open an interactive shell in the `application-backend` container.
 ```bash
 $ docker exec -it <container-name> sh
 ```
@@ -56,6 +58,13 @@ $ composer install
 ```bash
 $ ./vendor/bin/phpmig migrate
 ```
+
+Setting folder ./public/upload  permissions to 777 allows read, write, and execute permissions for the owner, group, and all users.  
+Make sure you are in the working directory /var/www/application.
+```bash
+$ chmod 777 ./public/upload
+```
+
 By now everything should be working properly. To interact with the API, a simple frontend  will be served on:  
 `localhost:80/frontend`  
 
@@ -92,3 +101,6 @@ Stop containers
 ```bash
 $ docker compose down
 ```
+
+## Special notes
+I need to solve some issues with my dockerfile and docker-compose file to make the containerization complete and easy to work correctly by just running `docker compose up -d`. Because of deadline I just put the instructions to handle the small issues and see the result of a working application( API+ Json and simple frontend). I count on your understanding in that matter. Thank you!

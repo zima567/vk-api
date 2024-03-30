@@ -24,5 +24,8 @@ FROM base
 # https://docs.docker.com/engine/reference/builder/#copy
 COPY . ./
 
+# Give access to upload folder
+RUN chmod 777 ./public/upload
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
