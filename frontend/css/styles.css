@@ -44,6 +44,16 @@ ul {
   flex-direction: column;
 }
 
+/*Pagination*/
+.pagination {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagination button {
+  margin: 4px;
+}
+
 /*Display none all components*/
 .signup, .login, .add-product, .section-catalogue, .filter {
     display: none;

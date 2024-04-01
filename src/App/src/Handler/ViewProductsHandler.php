@@ -37,7 +37,7 @@ class ViewProductsHandler implements RequestHandlerInterface
         $orderType = $reqData['orderType'] ? strval($reqData['orderType']) : "login";
         $orderDirection = ($reqData['orderDirection'] && $reqData['orderDirection'] == 1)  ? "asc" : "desc";
         $limit = $reqData['limit'] ? intval($reqData['limit']) : 100;
-        $offset = $reqData['offset'] ? intval($reqData['ofset']) : 0;
+        $offset = $reqData['offset'] ? intval($reqData['offset']) : 0;
         $priceMin = $reqData['priceMin'] ? intval($reqData['priceMin']) : 0;
         $priceMax = $reqData['priceMax'] ? intval($reqData['priceMax']) : 0;
         

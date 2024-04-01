@@ -28,14 +28,6 @@
         <div class="component filter" id="sec-filter">
           <div>
             <span>
-              <label>Limit</label>
-              <input type="text" id="limit" name="limit" placeholder="Add limit to query">
-            </span>
-            <span>
-              <label>offset</label>
-              <input type="text" id="offset" name="PriceMin" placeholder="add offset">
-            </span>
-            <span>
               <label>min price</label>
               <input type="text" id="priceMin" name="priceMin" placeholder="Enter min price">
             </span>
@@ -135,6 +127,10 @@
           <div class="component section-catalogue" id="sec-section-catalogue">
             <di class="small-header">
                 <h4>Product catalogue</h4>
+                <div class="pagination">
+                  <button id="btnLeft"><--</button>
+                  <button id="btnRight">--></button>
+                </div>
             </di>
             <div class="catalogue" id="catalogue">
                 <!--Here will be the products elements-->

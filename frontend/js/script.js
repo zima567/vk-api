@@ -1,4 +1,14 @@
 // script.js
+  //Global var for number product per page
+  var globalVar = {
+    limit: 2,
+    offset: 0,
+    page: 1
+  }
+  var globalParams = {
+    params: {}
+  };
+
 $(document).ready(function(){
     //handle show-hide of components
     $("#nav-signup").click(function(){
@@ -211,46 +221,13 @@ $(document).ready(function(){
         // parameters optional
         const params = {
         };
+        params.limit = globalVar.limit;
+        //Make params global
+        globalParams.params = params;
+
         var storedToken = localStorage.getItem('token-api-vk');
         storedToken = storedToken ? storedToken : "abcd";
-
-        // Make the GET request using jQuery
-        $.ajax({
-          url: '/api/products',
-          type: 'GET',
-          data: params,
-          beforeSend: function(xhr) {
-            // Include the Bearer token in the request headers
-            xhr.setRequestHeader('Authorization', 'Bearer ' + storedToken);
-            showLoader(true);
-          },
-          success: function(data) {
-              showLoader(false);
-              console.log(data);
-              let products = data.products;
-              $("#catalogue").html("");
-              products.forEach(product => {
-                  let prodElement = '<div class="product-box">';
-		  let splitPictureLink = product.pictureLink.split("/");
-		  let link = splitPictureLink[splitPictureLink.length - 1];
-		  prodElement += '<img src="/'+link+'" alt="Product Image">\
-                  <h3>'+product.title+'</h3>\
-                  <p class="price">'+product.price+'</p>\
-                  <p class="description">'+product.description+'</p>\
-                  <span class="seller"> Seller: '+product.login+'</span>';
-                  if(product.owner) {
-                    prodElement += '<span class="tag">Owner</span>';
-                  }
-                  prodElement += '</div>';
-                  $("#catalogue").append(prodElement);
-              });
-            
-          },
-          error: function(xhr, status, error) {
-              showLoader(false);
-              console.error('There was a problem with the request:', error);
-          }
-       }); 
+        loadproducts(params, storedToken);
     });
 
     //filer search
@@ -258,12 +235,9 @@ $(document).ready(function(){
       // parameters optional
       const params = {
       };
-      var limit, offset, priceMin, priceMax, oderType, orderDirection;
-      limit = $.trim($("#limit").val());
-      params.limit = limit ? limit : 100;
 
-      offset = $.trim($("#offset").val());
-      params.offset = offset ? offset : 0;
+      var priceMin, priceMax, orderType, orderDirection;
+      params.limit = globalVar.limit;
 
       priceMin = $.trim($("#priceMin").val());
       params.priceMin = priceMin ? priceMin : 0;
@@ -279,46 +253,44 @@ $(document).ready(function(){
       
       var storedToken = localStorage.getItem('token-api-vk');
       storedToken = storedToken ? storedToken : "abcd";
-      console.log(params);
+
+      //make params global for other use
+      globalParams.params = params;
+
       // Make the GET request using jQuery
-      $.ajax({
-        url: '/api/products',
-        type: 'GET',
-        data: params,
-        beforeSend: function(xhr) {
-          // Include the Bearer token in the request headers
-          xhr.setRequestHeader('Authorization', 'Bearer ' + storedToken);
-          showLoader(true);
-        },
-        success: function(data) {
-            showLoader(false);
-            console.log(data);
-            let products = data.products;
-            $("#sec-filter").hide();
-            $("#catalogue").html("");
-            $("#sec-section-catalogue").show();
-            products.forEach(product => {
-                let prodElement = '<div class="product-box">';
-                  let splitPictureLink = product.pictureLink.split("/");
-                  let link = splitPictureLink[splitPictureLink.length - 1];
-                  prodElement += '<img src="/'+link+'" alt="Product Image">\
-                  <h3>'+product.title+'</h3>\
-                  <p class="price">'+product.price+'</p>\
-                  <p class="description">'+product.description+'</p>\
-                  <span class="seller"> Seller: '+product.login+'</span>';
-                  if(product.owner) {
-                    prodElement += '<span class="tag">Owner</span>';
-                  }
-                  prodElement += '</div>';
-                  $("#catalogue").append(prodElement);
-            });
-        },
-        error: function(xhr, status, error) {
-            showLoader(false);
-            console.error('There was a problem with the request:', error);
+      loadproducts(params, storedToken, 'filter');
+    });
+
+    //Pagination left - right
+    $("#btnLeft").on('click', function(){
+        if(globalVar.page > 1) {
+          globalVar.page = globalVar.page - 1;
+          globalVar.offset = (globalVar.page - 1) * globalVar.limit;
         }
-     }); 
-  });
+        
+        var params = globalParams.params;
+        params.limit = globalVar.limit;
+        params.offset = globalVar.offset;
+        console.log(params);
+
+        var storedToken = localStorage.getItem('token-api-vk');
+        storedToken = storedToken ? storedToken : "abcd";
+        loadproducts(params, storedToken);
+    });
+
+    $("#btnRight").on('click', function(){
+        globalVar.page = globalVar.page + 1;
+        globalVar.offset = (globalVar.page - 1) * globalVar.limit;
+        var params = globalParams.params;
+        params.limit = globalVar.limit;
+        params.offset = globalVar.offset;
+
+        console.log(params);
+
+        var storedToken = localStorage.getItem('token-api-vk');
+        storedToken = storedToken ? storedToken : "abcd";
+        loadproducts(params, storedToken);
+    });
 
     //Functions definitions
     //Function to show and hide loader
@@ -337,6 +309,62 @@ $(document).ready(function(){
         $("#"+idOption).addClass("active");
         $("#"+idSection).show();
         $('#noti').html("");
+    }
+
+    //reset to page one
+    function resetPagination(globalVar) {
+      globalVar.page = 0;
+      globalVar.offset = 0;
+      globalVar.limit = 2;
+    }
+
+    //load product
+    function loadproducts(params, storedToken, section='default') {
+      $.ajax({
+        url: '/api/products',
+        type: 'GET',
+        data: params,
+        beforeSend: function(xhr) {
+          // Include the Bearer token in the request headers
+          xhr.setRequestHeader('Authorization', 'Bearer ' + storedToken);
+          showLoader(true);
+        },
+        success: function(data) {
+            showLoader(false);
+            console.log(data);
+            if(section =='filter') {
+              $("#sec-filter").hide();
+              $("#sec-section-catalogue").show();
+            }
+            let products = data.products;
+
+            if(products.length == 0) {
+                resetPagination(globalVar);
+            }
+
+            $("#catalogue").html("");
+            products.forEach(product => {
+                let prodElement = '<div class="product-box">';
+                let splitPictureLink = product.pictureLink.split("/");
+                let link = splitPictureLink[splitPictureLink.length - 1];
+                prodElement += '<img src="/'+link+'" alt="Product Image">\
+                <h3>'+product.title+'</h3>\
+                <p class="price">'+product.price+'</p>\
+                <p class="description">'+product.description+'</p>\
+                <span class="seller"> Seller: '+product.login+'</span>';
+                if(product.owner) {
+                  prodElement += '<span class="tag">Owner</span>';
+                }
+                prodElement += '</div>';
+                $("#catalogue").append(prodElement);
+            });
+          
+        },
+        error: function(xhr, status, error) {
+            showLoader(false);
+            console.error('There was a problem with the request:', error);
+        }
+     });  
     }
 
 });
